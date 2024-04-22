@@ -33,6 +33,12 @@ public class Horse
     public void fall()
     {
         hasFallen = true;
+        setConfidence(getConfidence()-0.1);
+    }
+
+    public void standUp()
+    {
+        hasFallen = false;
     }
     
     public double getConfidence()
@@ -73,6 +79,15 @@ public class Horse
     public void setConfidence(double newConfidence)
     {
         confidence = newConfidence;
+
+        if(confidence > 1.0)
+        {
+            confidence = 1.0;
+        }
+        else if(confidence < 0.0)
+        {
+            confidence = 0.0;
+        }
     }
     
     public void setSymbol(char newSymbol)
@@ -82,24 +97,24 @@ public class Horse
     
 }
 
-class Test {
-    public static void main(String[] args) {
-        Horse horse = new Horse('H', "Horse", 0.5);
-        System.out.println(horse.hasFallen());
+// class Test {
+//     public static void main(String[] args) {
+//         Horse horse = new Horse('H', "Horse", 0.5);
+//         System.out.println(horse.hasFallen());
 
-        horse.fall();
-        System.out.println(horse.hasFallen());
+//         horse.fall();
+//         System.out.println(horse.hasFallen());
 
-        horse.moveForward();
-        System.out.println(horse.getDistanceTravelled());
-        horse.goBackToStart();
-        System.out.println(horse.getDistanceTravelled());
+//         horse.moveForward();
+//         System.out.println(horse.getDistanceTravelled());
+//         horse.goBackToStart();
+//         System.out.println(horse.getDistanceTravelled());
      
-        horse.setConfidence(0.7);
-        System.out.println(horse.getConfidence());
+//         horse.setConfidence(0.7);
+//         System.out.println(horse.getConfidence());
 
-        horse.setSymbol('A');
-        System.out.println(horse.getSymbol());
+//         horse.setSymbol('A');
+//         System.out.println(horse.getSymbol());
 
-    }
-}
+//     }
+// }

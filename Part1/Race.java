@@ -72,8 +72,9 @@ public class Race
         lane2Horse.goBackToStart();
         lane3Horse.goBackToStart();
                       
-        while (!finished)
+        while (!finished && !allHorsesFallen())
         {
+
             //move each horse
             moveHorse(lane1Horse);
             moveHorse(lane2Horse);
@@ -93,6 +94,44 @@ public class Race
                 TimeUnit.MILLISECONDS.sleep(100);
             }catch(Exception e){}
         }
+
+        if(finished == false)
+        {
+            System.out.println("All horses have fallen");
+        }
+
+        //print the winner
+        if (raceWonBy(lane1Horse))
+        {
+            printWinner(lane1Horse);
+        } 
+        else if (raceWonBy(lane2Horse))
+        {
+            printWinner(lane2Horse);
+        }
+        else if (raceWonBy(lane3Horse))
+        {
+            printWinner(lane3Horse);
+        }
+
+        //Get all horses to stand up again
+        standUpAllHorses(lane1Horse, lane2Horse, lane3Horse);
+
+    }
+
+    //Print the winner and increase the confidence of the winner
+    private void printWinner(Horse theHorse)
+    {
+        theHorse.setConfidence(theHorse.getConfidence() + 0.1);
+        System.out.println("And the winner is " + theHorse.getName());
+    }
+
+    //Get all horses to stand up again
+    public void standUpAllHorses(Horse lane1Horse, Horse lane2Horse, Horse lane3Horse)
+    {
+        lane1Horse.standUp();
+        lane2Horse.standUp();
+        lane3Horse.standUp();
     }
     
     /**
@@ -148,7 +187,9 @@ public class Race
      */
     private void printRace()
     {
-        System.out.print('\u000C');  //clear the terminal window
+        //System.out.print('\u000C');  //clear the terminal window
+        System.out.print("\033[H\033[2J");  //clear the terminal window
+
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();
@@ -201,6 +242,9 @@ public class Race
         
         //print the | for the end of the track
         System.out.print('|');
+
+        //print the horse's name along with its currrent confidence
+        System.out.print(" " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")");
     }
         
     
@@ -219,4 +263,12 @@ public class Race
             i = i + 1;
         }
     }
+
+    //Check if all horses have fallen
+    private boolean allHorsesFallen()
+    {
+        return lane1Horse.hasFallen() && lane2Horse.hasFallen() && lane3Horse.hasFallen();
+    }
 }
+
+
