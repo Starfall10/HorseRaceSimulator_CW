@@ -114,8 +114,7 @@ public class Race
             printWinner(lane3Horse);
         }
 
-        //Get all horses to stand up again
-        standUpAllHorses(lane1Horse, lane2Horse, lane3Horse);
+        
 
     }
 
@@ -126,13 +125,7 @@ public class Race
         System.out.println("And the winner is " + theHorse.getName());
     }
 
-    //Get all horses to stand up again
-    public void standUpAllHorses(Horse lane1Horse, Horse lane2Horse, Horse lane3Horse)
-    {
-        lane1Horse.standUp();
-        lane2Horse.standUp();
-        lane3Horse.standUp();
-    }
+    
     
     /**
      * Randomly make a horse move forward or fall depending

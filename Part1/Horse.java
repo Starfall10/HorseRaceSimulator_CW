@@ -36,10 +36,7 @@ public class Horse
         setConfidence(getConfidence()-0.1);
     }
 
-    public void standUp()
-    {
-        hasFallen = false;
-    }
+    
     
     public double getConfidence()
     {
@@ -64,6 +61,7 @@ public class Horse
     public void goBackToStart()
     {
         distanceTravelled = 0;
+        hasFallen = false;
     }
     
     public boolean hasFallen()
