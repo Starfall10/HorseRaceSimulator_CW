@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class HorseRaceGUI {
     private JFrame mainFrame;
     private JPanel mainPanel, raceDetailsPanel, bettingPanel;
-    private int numOfTracks = 2; 
+    private int numOfTracks = 5; 
     private int trackLength = 10;
 
     public HorseRaceGUI() {
@@ -44,13 +44,21 @@ public class HorseRaceGUI {
             trackPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             trackPanel.add(new JLabel("Track " + (i + 1)));
             trackPanel.add(new JLabel("Horse " + (i + 1)));
+
+            JPanel raceTrack = new JPanel();
+            raceTrack.setBackground(Color.ORANGE);
+            raceTrack.setPreferredSize(new Dimension(750, 50));
+            trackPanel.add(raceTrack);
+
             mainPanel.add(trackPanel);
+
+            
+
         }
 
 
         mainFrame.add(mainPanel, BorderLayout.CENTER);
         
-        System.out.println("Main Panel Set Up" + numOfTracks + " " + trackLength);
     }
 
     public void setUpRaceDetailsPanel() {
@@ -62,8 +70,8 @@ public class HorseRaceGUI {
         JTextField trackLenField = new JTextField();
         trackLenField.setPreferredSize(new Dimension(100,30));
 
-        JButton startRace = new JButton("Start Race");
-        startRace.addActionListener(new ActionListener() {
+        JButton setUpRace = new JButton("setUpRace");
+        setUpRace.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 numOfTracks = Integer.parseInt(trackNumField.getText());
@@ -78,7 +86,7 @@ public class HorseRaceGUI {
         raceDetailsPanel.add(trackNumField);
         raceDetailsPanel.add(trackLen);
         raceDetailsPanel.add(trackLenField);
-        raceDetailsPanel.add(startRace);
+        raceDetailsPanel.add(setUpRace);
 
         mainFrame.add(raceDetailsPanel, BorderLayout.NORTH);
     }

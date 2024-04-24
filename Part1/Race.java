@@ -156,7 +156,7 @@ public class Race
             }
         }
     }
-        
+                
     /** 
      * Determines if a horse has won the race
      *
