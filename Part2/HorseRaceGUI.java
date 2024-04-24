@@ -3,15 +3,21 @@ package Part2;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.concurrent.Flow;
 
 
 public class HorseRaceGUI {
-    private JFrame mainFrame;
+    JFrame mainFrame;
     private JPanel mainPanel, raceDetailsPanel, bettingPanel;
-    private int numOfTracks = 5; 
+    private int numOfTracks = 3; 
     private int trackLength = 10;
+    Horse horse1, horse2, horse3;
+    String horseText1 = "H";
+    String horseText2 = "H";
+    String horseText3 = "H";
+    JTextArea [] horseTextArea = new JTextArea[3];
 
-    public HorseRaceGUI() {
+    public HorseRaceGUI(Horse horse1, Horse horse2, Horse horse3) {
         mainFrame = new JFrame();
         mainPanel = new JPanel();
         raceDetailsPanel = new JPanel();
@@ -40,16 +46,25 @@ public class HorseRaceGUI {
         mainPanel.removeAll();
         mainPanel.setLayout(new GridLayout(numOfTracks,1));
         for (int i = 0; i < numOfTracks; i++) {
-            JPanel trackPanel = new JPanel();
+            JPanel trackPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             trackPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
             trackPanel.add(new JLabel("Track " + (i + 1)));
             trackPanel.add(new JLabel("Horse " + (i + 1)));
-
-            JPanel raceTrack = new JPanel();
+            JPanel raceTrack = new JPanel(new FlowLayout(FlowLayout.LEFT));
             raceTrack.setBackground(Color.ORANGE);
             raceTrack.setPreferredSize(new Dimension(750, 50));
-            trackPanel.add(raceTrack);
+            
+            horseTextArea[i] = new JTextArea(horseText1);
+            JTextArea horse = horseTextArea[i];
+            horse.setPreferredSize(new Dimension(750, 50));
+            horse.setBackground(Color.ORANGE);
+            horse.setFont(new Font("Ariel", Font.PLAIN, 20));
+            raceTrack.add(horse);
+            
+            
 
+            trackPanel.add(raceTrack);
             mainPanel.add(trackPanel);
 
             
@@ -92,6 +107,17 @@ public class HorseRaceGUI {
     }
 
     public static void main(String[] args) {
-        new HorseRaceGUI();
+        
+        
+        Horse horse1 = new Horse('\u2654', "Horse1", 0.5);
+        Horse horse2 = new Horse('\u2654', "Horse2", 0.5);
+        Horse horse3 = new Horse('\u2654', "Horse3", 0.5);
+        HorseRaceGUI GUI = new HorseRaceGUI(horse1, horse2, horse3);
+        RaceGUI race1 = new RaceGUI(10, GUI);
+        race1.addHorse(horse1, 1);
+        race1.addHorse(horse2, 2);
+        race1.addHorse(horse3, 3);
+
+        race1.startRaceGUI();
     }
 }

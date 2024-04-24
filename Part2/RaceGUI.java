@@ -1,19 +1,19 @@
+package Part2;
+
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 
-/**
- * A three-horse race, each horse running in its own lane
- * for a given distance
- * 
- * @author McFarewell
- * @version 1.0
- */
-public class Race
-{
+public class RaceGUI {
     private int raceLength;
     private Horse lane1Horse;
     private Horse lane2Horse;
     private Horse lane3Horse;
+
+    String horseText1 = "H";
+    String horseText2 = "H";
+    String horseText3 = "H";
+
+    HorseRaceGUI horseRaceGUI;
 
     /**
      * Constructor for objects of class Race
@@ -21,15 +21,16 @@ public class Race
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public Race(int distance)
+    public RaceGUI(int distance, HorseRaceGUI horseRaceGUI)
     {
         // initialise instance variables
         raceLength = distance;
         lane1Horse = null;
         lane2Horse = null;
         lane3Horse = null;
+        this.horseRaceGUI = horseRaceGUI;
     }
-    
+
     /**
      * Adds a horse to the race in a given lane
      * 
@@ -55,14 +56,14 @@ public class Race
             System.out.println("Cannot add horse to lane " + laneNumber + " because there is no such lane");
         }
     }
-    
+
     /**
      * Start the race
      * The horse are brought to the start and
      * then repeatedly moved forward until the 
      * race is finished
      */
-    public void startRace()
+    public void startRaceGUI()
     {
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
@@ -113,9 +114,6 @@ public class Race
         {
             printWinner(lane3Horse);
         }
-
-        
-
     }
 
     //Print the winner and increase the confidence of the winner
@@ -125,8 +123,6 @@ public class Race
         System.out.println("And the winner is " + theHorse.getName());
     }
 
-    
-    
     /**
      * Randomly make a horse move forward or fall depending
      * on its confidence rating
@@ -174,87 +170,94 @@ public class Race
             return false;
         }
     }
-    
+
     /***
      * Print the race on the terminal
      */
     private void printRace()
     {
-        //System.out.print('\u000C');  //clear the terminal window
-        System.out.print("\033[H\033[2J");  //clear the terminal window
+        horseText1 = printLane(lane1Horse);
+        horseRaceGUI.horseTextArea[0].setText(horseText1);
+        //System.out.println();
+        
+        horseText2 = printLane(lane2Horse);
+        horseRaceGUI.horseTextArea[1].setText(horseText2);
+        //System.out.println();
+        
+        horseText3 = printLane(lane3Horse);
+        horseRaceGUI.horseTextArea[2].setText(horseText3);
+        //System.out.println();   
 
-        
-        multiplePrint('=',raceLength+3); //top edge of track
-        System.out.println();
-        
-        printLane(lane1Horse);
-        System.out.println();
-        
-        printLane(lane2Horse);
-        System.out.println();
-        
-        printLane(lane3Horse);
-        System.out.println();
-        
-        multiplePrint('=',raceLength+3); //bottom edge of track
-        System.out.println();    
+        horseRaceGUI.mainFrame.revalidate();
+        horseRaceGUI.mainFrame.repaint();
     }
-    
+
+
     /**
      * print a horse's lane during the race
      * for example
      * |           X                      |
      * to show how far the horse has run
      */
-    private void printLane(Horse theHorse)
+    private String printLane(Horse theHorse)
     {
+        String returnText = "";
         //calculate how many spaces are needed before
         //and after the horse
         int spacesBefore = theHorse.getDistanceTravelled();
         int spacesAfter = raceLength - theHorse.getDistanceTravelled();
         
         //print a | for the beginning of the lane
-        System.out.print('|');
+        returnText += "|";
         
         //print the spaces before the horse
-        multiplePrint(' ',spacesBefore);
+        returnText += multiplePrint("_",spacesBefore);
         
         //if the horse has fallen then print dead
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            //System.out.print('\u2322');
+            returnText += "X";
         }
         else
         {
-            System.out.print(theHorse.getSymbol());
+            //System.out.print(theHorse.getSymbol());
+            returnText += "H";
         }
         
         //print the spaces after the horse
-        multiplePrint(' ',spacesAfter);
+        returnText += multiplePrint("_",spacesAfter);
         
         //print the | for the end of the track
-        System.out.print('|');
+        //System.out.print('|');
+        returnText += "|";
 
         //print the horse's name along with its currrent confidence
-        System.out.print(" " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")");
+        //System.out.print(" " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")");
+        returnText += " " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")";
+
+        return returnText;
     }
-        
-    
+
     /***
      * print a character a given number of times.
      * e.g. printmany('x',5) will print: xxxxx
      * 
      * @param aChar the character to Print
      */
-    private void multiplePrint(char aChar, int times)
+    private String multiplePrint(String aChar, int times)
     {
+        String returnSpaces = "";
         int i = 0;
         while (i < times)
         {
-            System.out.print(aChar);
+            //System.out.print(aChar);
+            returnSpaces += aChar;
             i = i + 1;
         }
+
+        return returnSpaces;
     }
 
     //Check if all horses have fallen
@@ -263,5 +266,3 @@ public class Race
         return lane1Horse.hasFallen() && lane2Horse.hasFallen() && lane3Horse.hasFallen();
     }
 }
-
-
