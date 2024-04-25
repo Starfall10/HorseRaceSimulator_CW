@@ -27,7 +27,7 @@ public class RaceGUI {
     JTextArea [] horseTextArea;
     JTextArea [] horseConfidenceLevels;
     JTextArea winnerMessage;
-    JTextArea [] horseNumberOfTicksTextAreas;
+    JTextArea [] horseNumberOfTicksTextAreas, horseTrackSpeedTextAreas;
 
 
     int numOfTracks;
@@ -38,7 +38,9 @@ public class RaceGUI {
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas)
+    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, 
+    JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas, 
+    JTextArea [] horseTrackSpeedTextAreas)
     {
         // initialise instance variables
         this.raceLength = distance;
@@ -47,6 +49,7 @@ public class RaceGUI {
         this.horseConfidenceLevels = horseConfidenceLevels;
         this.winnerMessage = winnerMessage;
         this.horseNumberOfTicksTextAreas = horseNumberOfTicksTextAreas;
+        this.horseTrackSpeedTextAreas = horseTrackSpeedTextAreas;
     }
 
     /**
@@ -393,6 +396,8 @@ public class RaceGUI {
         for (int i = 0; i < numOfTracks; i++)
         {
             horseNumberOfTicksTextAreas[i].setText(horses[i].tickPerRace + " ticks");
+            double speed = (double)horses[i].tickPerRace / (double)raceLength;
+            horseTrackSpeedTextAreas[i].setText(String.format("%.2f" , speed) + " ticks per meter");
         }
     }
 }
