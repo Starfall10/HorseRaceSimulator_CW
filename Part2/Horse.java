@@ -15,6 +15,7 @@ public class Horse
     private int distanceTravelled;
     private boolean hasFallen;
     private double confidence;
+    private String color;
     private String breed;
     
     
@@ -23,13 +24,14 @@ public class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence, String horseBreed)
+    public Horse(char horseSymbol, String horseName, double horseConfidence, String horseColor , String horseBreed)
     {
         symbol = horseSymbol;
         name = horseName;
         confidence = horseConfidence;
         distanceTravelled = 0;  
         hasFallen = false;
+        color = horseColor;
         breed = horseBreed;
     }
     
@@ -38,6 +40,11 @@ public class Horse
     {
         hasFallen = true;
         setConfidence(getConfidence()-0.1);
+    }
+
+    public String getColor()
+    {
+        return color;
     }
 
     public String getBreed()

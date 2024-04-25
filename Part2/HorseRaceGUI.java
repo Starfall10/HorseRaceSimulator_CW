@@ -15,6 +15,7 @@ public class HorseRaceGUI {
     
     JTextArea [] horseTextArea = new JTextArea[5];
     JTextField [] horseNameFields = new JTextField[5];
+    JComboBox [] horseColorFields = new JComboBox[5];
     JComboBox [] horseBreedFields = new JComboBox[5];
     JPanel [] trackPanels = new JPanel[5];
 
@@ -33,7 +34,7 @@ public class HorseRaceGUI {
     public void setUpMainFrame() {
         mainFrame.setLayout(new BorderLayout(10, 5));
         mainFrame.setTitle("HorseRaceSimulator");
-        mainFrame.setSize(1100, 500);
+        mainFrame.setSize(1100, 800);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout());
@@ -98,18 +99,24 @@ public class HorseRaceGUI {
                 raceDetailsPanel.removeAll();
 
                 for (int i = 0; i < numOfTracks; i++) {
-                    JPanel horseInfoIndividual = new JPanel(new GridLayout(2,1));
+                    JPanel horseInfoIndividual = new JPanel(new GridLayout(3,1));
                     JLabel horseName = new JLabel("Name:");
                     horseNameFields[i] = new JTextField();
                     horseNameFields[i].setPreferredSize(new Dimension(100, 30));
 
-                    JLabel horseBreed = new JLabel("Breed:");
+                    JLabel horseColor = new JLabel("Color:");
 
-                    String [] breeds  = {"Black", "Green", "Red", "Magenta", "Dark Gray"};
+                    String [] colors  = {"Black", "Green", "Red", "Magenta", "Dark Gray"};
+                    horseColorFields[i] = new JComboBox(colors);
+
+                    JLabel horseBreed = new JLabel("Breed:");
+                    String [] breeds = {"Knight", "King", "Queen", "Rook", "Bishop", "Pawn"};
                     horseBreedFields[i] = new JComboBox(breeds);
 
                     horseInfoIndividual.add(horseName);
                     horseInfoIndividual.add(horseNameFields[i]);
+                    horseInfoIndividual.add(horseColor);
+                    horseInfoIndividual.add(horseColorFields[i]);
                     horseInfoIndividual.add(horseBreed);
                     horseInfoIndividual.add(horseBreedFields[i]);
                     horseInfoPanel.add(horseInfoIndividual);
@@ -124,8 +131,23 @@ public class HorseRaceGUI {
 
                         for (int i = 0; i < numOfTracks; i++) {
                             String nameHorse = horseNameFields[i].getText();
-                            String breedHorse = (String) horseBreedFields[i].getSelectedItem();
-                            Horse horse = new Horse('\u265E', nameHorse, 0.5, breedHorse);
+                            String colorHorse = (String) horseColorFields[i].getSelectedItem();
+                            String horseBreed = (String) horseBreedFields[i].getSelectedItem();
+                            char cBreed = ' ';
+                            if (horseBreed.equals("Knight")) {
+                                cBreed = '\u265E';
+                            } else if (horseBreed.equals("King")) {
+                                cBreed = '\u265A';
+                            } else if (horseBreed.equals("Queen")) {
+                                cBreed = '\u265B';
+                            } else if (horseBreed.equals("Rook")) {
+                                cBreed = '\u265C';
+                            } else if (horseBreed.equals("Bishop")) {
+                                cBreed = '\u265D';
+                            } else if (horseBreed.equals("Pawn")) {
+                                cBreed = '\u265F';
+                            }
+                            Horse horse = new Horse(cBreed, nameHorse, 0.5, colorHorse, horseBreed);
                             race1.addHorse(horse, i+1);
                         }
                         race1.setUpHorse(numOfTracks);
@@ -147,7 +169,7 @@ public class HorseRaceGUI {
             }
         });
 
-        raceDetailsPanel.setPreferredSize(new Dimension(850, 120));
+        raceDetailsPanel.setPreferredSize(new Dimension(850, 200));
         raceDetailsPanel.add(trackNum);
         raceDetailsPanel.add(trackNumField);
         raceDetailsPanel.add(trackLen);

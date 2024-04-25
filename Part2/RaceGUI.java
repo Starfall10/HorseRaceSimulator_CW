@@ -235,6 +235,32 @@ public class RaceGUI {
         }
         else
         {
+            String horseBreed = theHorse.getBreed();
+            if(horseBreed.equals("Knight"))
+            {
+                returnText += "\u265E";
+            }
+            else if(horseBreed.equals("King"))
+            {
+                returnText += "\u265A";
+            }
+            else if(horseBreed.equals("Queen"))
+            {
+                returnText += "\u265B";
+            }
+            else if(horseBreed.equals("Rook"))
+            {
+                returnText += "\u265C";
+            }
+            else if(horseBreed.equals("Bishop"))
+            {
+                returnText += "\u265D";
+            }
+            else if(horseBreed.equals("Pawn"))
+            {
+                returnText += "\u265F";
+            }
+            else
             returnText += "\u265E";
         }
         
@@ -293,24 +319,24 @@ public class RaceGUI {
             int spacesAfter = raceLength - horses[i].getDistanceTravelled();
             horseTextStrings[i] = horses[i].getSymbol()+ multiplePrint("   ",spacesAfter) + "|";
             horseTextArea[i].setText(horseTextStrings[i]);
-            String breed = horses[i].getBreed();
-            if (breed.equals("Black"))
+            String color = horses[i].getColor();
+            if (color.equals("Black"))
             {
                 horseTextArea[i].setForeground(Color.BLACK);
             }
-            else if (breed.equals("Green"))
+            else if (color.equals("Green"))
             {
                 horseTextArea[i].setForeground(Color.GREEN);
             }
-            else if (breed.equals("Red"))
+            else if (color.equals("Red"))
             {
                 horseTextArea[i].setForeground(Color.RED);
             }
-            else if (breed.equals("Magenta"))
+            else if (color.equals("Magenta"))
             {
                 horseTextArea[i].setForeground(Color.MAGENTA);
             }
-            else if (breed.equals("Dark Gray"))
+            else if (color.equals("Dark Gray"))
             {
                 horseTextArea[i].setForeground(Color.DARK_GRAY);
             }
