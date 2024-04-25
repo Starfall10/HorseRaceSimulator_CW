@@ -83,6 +83,7 @@ public class Horse
         hasFallen = false;
         isFinished = false;
         firstToFinish = false;
+        numberOfRaces++;
     }
     
     public boolean hasFallen()

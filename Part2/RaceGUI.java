@@ -177,7 +177,6 @@ public class RaceGUI {
             for (int i = 0; i < numOfTracks; i++) {
                 if(horses[i].firstToFinish == true)
                 {
-                    horses[i].numberOfRaces++;
                     displayEndStats();
                 }
             }
@@ -222,9 +221,10 @@ public class RaceGUI {
             //the probability that the horse will fall is very small (max is 0.1)
             //but will also will depends exponentially on confidence 
             //so if you double the confidence, the probability that it will fall is *2
-            if (Math.random() < (0.015*theHorse.getConfidence()*theHorse.getConfidence()))
+            if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
-                //theHorse.fall();
+                theHorse.isFinished = true;
+                theHorse.fall();
             }
         }
     }
