@@ -21,6 +21,7 @@ public class HorseRaceGUI {
     JTextArea [] horseConfidenceLevels = new JTextArea[5];
     JTextArea winnerMessage;
     JTextArea [] horseNumberOfTicksTextAreas = new JTextArea[5];
+    JTextArea [] horseTrackSpeed = new JTextArea[5];
 
     public HorseRaceGUI() {
         mainFrame = new JFrame();
@@ -214,12 +215,16 @@ public class HorseRaceGUI {
         winnerPanel.add(winnerMessage);
 
         //Track Speed panel
-        JPanel trackSpeedPanel = new JPanel(new GridLayout(0, 2));
+        JPanel trackSpeedPanel = new JPanel(new GridLayout(0, 3));
         for(int i = 0; i < numOfTracks; i++) {
-            JLabel trackSpeed = new JLabel("Horse " + (i+1) + " Speed: ");
+            JLabel trackSpeed = new JLabel("Horse " + (i+1) );
             horseNumberOfTicksTextAreas[i] = new JTextArea("0");
+            horseNumberOfTicksTextAreas[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            horseTrackSpeed[i] = new JTextArea("0");
+            horseTrackSpeed[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
             trackSpeedPanel.add(trackSpeed);
             trackSpeedPanel.add(horseNumberOfTicksTextAreas[i]);
+            trackSpeedPanel.add(horseTrackSpeed[i]);
         }
 
         statsPanel.add(stats);

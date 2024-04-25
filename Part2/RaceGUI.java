@@ -392,7 +392,7 @@ public class RaceGUI {
     public void displayEndStats() {
         for (int i = 0; i < numOfTracks; i++)
         {
-            horseNumberOfTicksTextAreas[i].setText("Finsihed Time: " + horses[i].tickPerRace);
+            horseNumberOfTicksTextAreas[i].setText(horses[i].tickPerRace + " ticks");
         }
     }
 }
