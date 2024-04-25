@@ -20,6 +20,7 @@ public class Horse
     int tickPerRace = 0;
     boolean isFinished = false;
     boolean firstToFinish = false;
+    int numberOfWins, numberOfRaces;
     
     
       

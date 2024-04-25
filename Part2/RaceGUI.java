@@ -27,7 +27,7 @@ public class RaceGUI {
     JTextArea [] horseTextArea;
     JTextArea [] horseConfidenceLevels;
     JTextArea winnerMessage;
-    JTextArea [] horseNumberOfTicksTextAreas, horseTrackSpeedTextAreas;
+    JTextArea [] horseNumberOfTicksTextAreas, horseTrackSpeedTextAreas, horseWinRateTextAreas;
 
 
     int numOfTracks;
@@ -40,7 +40,7 @@ public class RaceGUI {
      */
     public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, 
     JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas, 
-    JTextArea [] horseTrackSpeedTextAreas)
+    JTextArea [] horseTrackSpeedTextAreas, JTextArea [] horseWinRateTextAreas)
     {
         // initialise instance variables
         this.raceLength = distance;
@@ -50,6 +50,7 @@ public class RaceGUI {
         this.winnerMessage = winnerMessage;
         this.horseNumberOfTicksTextAreas = horseNumberOfTicksTextAreas;
         this.horseTrackSpeedTextAreas = horseTrackSpeedTextAreas;
+        this.horseWinRateTextAreas = horseWinRateTextAreas;
     }
 
     /**
@@ -158,6 +159,7 @@ public class RaceGUI {
                     horses[i].firstToFinish = true;
                     printWinner(horses[i]);
                     winnerFound = true;
+                    horses[i].numberOfWins++;
                     System.out.println("Winner is " + horses[i].getName());
                 }
             }
@@ -175,6 +177,7 @@ public class RaceGUI {
             for (int i = 0; i < numOfTracks; i++) {
                 if(horses[i].firstToFinish == true)
                 {
+                    horses[i].numberOfRaces++;
                     displayEndStats();
                 }
             }
@@ -397,7 +400,14 @@ public class RaceGUI {
         {
             horseNumberOfTicksTextAreas[i].setText(horses[i].tickPerRace + " ticks");
             double speed = (double)horses[i].tickPerRace / (double)raceLength;
-            horseTrackSpeedTextAreas[i].setText(String.format("%.2f" , speed) + " ticks per meter");
+            horseTrackSpeedTextAreas[i].setText(String.format("%.2f" , speed) + " ticks/m");
+            if(horses[i].numberOfWins == 0)
+            {
+                horseWinRateTextAreas[i].setText("0.00 win rate");
+                continue;
+            }
+            double winRate = (double)horses[i].numberOfWins / (double)horses[i].numberOfRaces;
+            horseWinRateTextAreas[i].setText(String.format("%.2f" , winRate) + " win rate");
         }
     }
 }
