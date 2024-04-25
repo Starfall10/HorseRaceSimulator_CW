@@ -17,6 +17,8 @@ public class Horse
     private double confidence;
     private String color;
     private String breed;
+    int tickPerRace = 0;
+    boolean isFinished = false;
     
     
       
@@ -75,7 +77,9 @@ public class Horse
     public void goBackToStart()
     {
         distanceTravelled = 0;
+        tickPerRace = 0;
         hasFallen = false;
+        isFinished = false;
     }
     
     public boolean hasFallen()
@@ -92,9 +96,9 @@ public class Horse
     {
         confidence = newConfidence;
 
-        if(confidence > 1.0)
+        if(confidence >= 1.0)
         {
-            confidence = 1.0;
+            confidence = 0.9;
         }
         else if(confidence < 0.0)
         {

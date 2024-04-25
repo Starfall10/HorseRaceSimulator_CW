@@ -25,6 +25,9 @@ public class RaceGUI {
 
     JTextArea [] horseTextArea;
     JTextArea [] horseConfidenceLevels;
+    JTextArea winnerMessage;
+    JTextArea [] horseNumberOfTicksTextAreas;
+
 
     int numOfTracks;
 
@@ -34,13 +37,15 @@ public class RaceGUI {
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, JTextArea [] horseConfidenceLevels)
+    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas)
     {
         // initialise instance variables
         this.raceLength = distance;
         this.horseTextArea = horseTextAreas;
         this.numOfTracks = numTracks;
         this.horseConfidenceLevels = horseConfidenceLevels;
+        this.winnerMessage = winnerMessage;
+        this.horseNumberOfTicksTextAreas = horseNumberOfTicksTextAreas;
     }
 
     /**
@@ -121,6 +126,7 @@ public class RaceGUI {
                 if(raceWonBy(horses[i]))
                 {
                     printWinner(horses[i]);
+                    displayEndStats();
                 }
             }
 
@@ -129,7 +135,9 @@ public class RaceGUI {
         //move each horse
         for (int i = 0; i < numOfTracks; i++)
         {
-            moveHorse(horses[i]);
+            if(horses[i].isFinished == false) {
+                moveHorse(horses[i]);
+            }
         }
         
         //print the race positions
@@ -140,16 +148,25 @@ public class RaceGUI {
         {
             if (raceWonBy(horses[i]))
             {
-                finished = true;
+                horses[i].isFinished = true;
             }
         }
+
+        finished = true;
+        for (int i = 0; i < numOfTracks; i++)
+        {
+            if(horses[i].isFinished == false) {
+                finished = false;
+            }
+        }
+        
     }
 
     //Print the winner and increase the confidence of the winner
     private void printWinner(Horse theHorse)
     {
         theHorse.setConfidence(theHorse.getConfidence() + 0.1);
-        System.out.println("And the winner is " + theHorse.getName());
+        winnerMessage.setText("And the winner is " + theHorse.getName());
     }
 
     /**
@@ -166,16 +183,20 @@ public class RaceGUI {
         
         if  (!theHorse.hasFallen())
         {
+            //increase tick by 1
+            theHorse.tickPerRace++;
+
             //the probability that the horse will move forward depends on the confidence;
             if (Math.random() < theHorse.getConfidence())
             {
                theHorse.moveForward();
+               
             }
             
             //the probability that the horse will fall is very small (max is 0.1)
             //but will also will depends exponentially on confidence 
             //so if you double the confidence, the probability that it will fall is *2
-            if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
+            if (Math.random() < (0.015*theHorse.getConfidence()*theHorse.getConfidence()))
             {
                 theHorse.fall();
             }
@@ -345,6 +366,13 @@ public class RaceGUI {
             }
             
 
+        }
+    }
+
+    public void displayEndStats() {
+        for (int i = 0; i < numOfTracks; i++)
+        {
+            horseNumberOfTicksTextAreas[i].setText("Number of Ticks: " + horses[i].tickPerRace);
         }
     }
 }
