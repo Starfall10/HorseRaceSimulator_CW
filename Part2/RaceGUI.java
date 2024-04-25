@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JTextArea;
 
+import java.awt.Color;
 import java.lang.Math;
 
 public class RaceGUI {
@@ -17,6 +18,8 @@ public class RaceGUI {
     String horseText1 = "H";
     String horseText2 = "H";
     String horseText3 = "H";
+
+    boolean finished = false;
 
     ScheduledExecutorService executor;
 
@@ -78,7 +81,7 @@ public class RaceGUI {
      * then repeatedly moved forward until the 
      * race is finished
      */
-    boolean finished = false;
+    
 
     public void startRaceGUI()
     {
@@ -103,7 +106,7 @@ public class RaceGUI {
     }
 
     private void moveGame() {
-        if(finished || allHorsesFallen()) {
+        if(finished || allHorsesFallen(numOfTracks)) {
             executor.shutdown();
 
             if(finished == false)
@@ -172,7 +175,7 @@ public class RaceGUI {
             //so if you double the confidence, the probability that it will fall is *2
             if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
-                //theHorse.fall();
+                theHorse.fall();
             }
         }
     }
@@ -220,8 +223,6 @@ public class RaceGUI {
         int spacesBefore = theHorse.getDistanceTravelled();
         int spacesAfter = raceLength - theHorse.getDistanceTravelled();
         
-        //print a | for the beginning of the lane
-        //returnText += "|";
         
         //print the spaces before the horse
         returnText += multiplePrint("   ",spacesBefore);
@@ -230,24 +231,20 @@ public class RaceGUI {
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            //System.out.print('\u2322');
             returnText += "X";
         }
         else
         {
-            //System.out.print(theHorse.getSymbol());
-            returnText += "H";
+            returnText += "\u265E";
         }
         
         //print the spaces after the horse
         returnText += multiplePrint("   ",spacesAfter);
         
         //print the | for the end of the track
-        //System.out.print('|');
         returnText += "|";
 
         //print the horse's name along with its currrent confidence
-        //System.out.print(" " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")");
         returnText += " " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")";
 
         return returnText;
@@ -265,7 +262,6 @@ public class RaceGUI {
         int i = 0;
         while (i < times)
         {
-            //System.out.print(aChar);
             returnSpaces += aChar;
             i = i + 1;
         }
@@ -274,17 +270,19 @@ public class RaceGUI {
     }
 
     //Check if all horses have fallen
-    private boolean allHorsesFallen()
+    private boolean allHorsesFallen(int numOfTracks)
     {
+        boolean allFallen = true;
+
         for (int i = 0; i < numOfTracks; i++)
         {
-            if (horses[i].hasFallen())
+            if (!horses[i].hasFallen())
             {
-                return true;
+                allFallen = false;
             }
         }
 
-        return false;
+        return allFallen;
     }
 
 
@@ -293,6 +291,30 @@ public class RaceGUI {
         for (int i = 0; i < numOfTracks; i++)
         {
             int spacesAfter = raceLength - horses[i].getDistanceTravelled();
+            horseTextStrings[i] = horses[i].getSymbol()+ multiplePrint("   ",spacesAfter) + "|";
+            horseTextArea[i].setText(horseTextStrings[i]);
+            String breed = horses[i].getBreed();
+            if (breed.equals("Black"))
+            {
+                horseTextArea[i].setForeground(Color.BLACK);
+            }
+            else if (breed.equals("Green"))
+            {
+                horseTextArea[i].setForeground(Color.GREEN);
+            }
+            else if (breed.equals("Red"))
+            {
+                horseTextArea[i].setForeground(Color.RED);
+            }
+            else if (breed.equals("Magenta"))
+            {
+                horseTextArea[i].setForeground(Color.MAGENTA);
+            }
+            else if (breed.equals("Dark Gray"))
+            {
+                horseTextArea[i].setForeground(Color.DARK_GRAY);
+            }
+            
 
         }
     }
