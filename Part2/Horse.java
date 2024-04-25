@@ -26,13 +26,13 @@ public class Horse
      */
     public Horse(char horseSymbol, String horseName, double horseConfidence, String horseColor , String horseBreed)
     {
-        symbol = horseSymbol;
-        name = horseName;
-        confidence = horseConfidence;
-        distanceTravelled = 0;  
-        hasFallen = false;
-        color = horseColor;
-        breed = horseBreed;
+        this.symbol = horseSymbol;
+        this.name = horseName;
+        this.confidence = horseConfidence;
+        this.distanceTravelled = 0;  
+        this.hasFallen = false;
+        this.color = horseColor;
+        this.breed = horseBreed;
     }
     
     //Other methods of class Horse

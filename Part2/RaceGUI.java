@@ -24,6 +24,7 @@ public class RaceGUI {
     ScheduledExecutorService executor;
 
     JTextArea [] horseTextArea;
+    JTextArea [] horseConfidenceLevels;
 
     int numOfTracks;
 
@@ -33,12 +34,13 @@ public class RaceGUI {
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks)
+    public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, JTextArea [] horseConfidenceLevels)
     {
         // initialise instance variables
-        raceLength = distance;
-        horseTextArea = horseTextAreas;
-        numOfTracks = numTracks;
+        this.raceLength = distance;
+        this.horseTextArea = horseTextAreas;
+        this.numOfTracks = numTracks;
+        this.horseConfidenceLevels = horseConfidenceLevels;
     }
 
     /**
@@ -208,6 +210,7 @@ public class RaceGUI {
         {
             horseTextStrings[i] = printLane(horses[i]);
             horseTextArea[i].setText(horseTextStrings[i]);
+            horseConfidenceLevels[i].setText("Confidence Level: " + String.format("%.1f" , horses[i].getConfidence()));
         }
 
         
@@ -271,7 +274,7 @@ public class RaceGUI {
         returnText += "|";
 
         //print the horse's name along with its currrent confidence
-        returnText += " " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")";
+        //returnText += " " + theHorse.getName() + " (Current confidence " + String.format("%.1f" , theHorse.getConfidence()) + ")";
 
         return returnText;
     }

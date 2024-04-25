@@ -18,6 +18,7 @@ public class HorseRaceGUI {
     JComboBox [] horseColorFields = new JComboBox[5];
     JComboBox [] horseBreedFields = new JComboBox[5];
     JPanel [] trackPanels = new JPanel[5];
+    JTextArea [] horseConfidenceLevels = new JTextArea[5];
 
     public HorseRaceGUI() {
         mainFrame = new JFrame();
@@ -63,9 +64,12 @@ public class HorseRaceGUI {
             horse.setFont(new Font("Ariel", Font.PLAIN, 25));
             raceTrack.add(horse);
             
+            horseConfidenceLevels[i] = new JTextArea("Confidence Level: ");
+            horseConfidenceLevels[i].setPreferredSize(new Dimension(150, 25));
             
 
             trackPanels[i].add(raceTrack);
+            trackPanels[i].add(horseConfidenceLevels[i]);    
             mainPanel.add(trackPanels[i]);
 
 
@@ -78,10 +82,10 @@ public class HorseRaceGUI {
 
     public void setUpRaceDetailsPanel() {
         //numTracks, trackLength 
-        JLabel trackNum = new JLabel("Number of Tracks: ");
+        JLabel trackNum = new JLabel("Number of Tracks (5 max): ");
         JTextField trackNumField = new JTextField();
         trackNumField.setPreferredSize(new Dimension(100,30));
-        JLabel trackLen = new JLabel("Track Length: ");
+        JLabel trackLen = new JLabel("Track Length (Max 30, min 5): ");
         JTextField trackLenField = new JTextField();
         trackLenField.setPreferredSize(new Dimension(100,30));
 
@@ -127,7 +131,7 @@ public class HorseRaceGUI {
                 setUpHorse.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        race1 = new RaceGUI(30, horseTextArea, numOfTracks);
+                        race1 = new RaceGUI(30, horseTextArea, numOfTracks, horseConfidenceLevels);
 
                         for (int i = 0; i < numOfTracks; i++) {
                             String nameHorse = horseNameFields[i].getText();
