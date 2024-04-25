@@ -20,6 +20,7 @@ public class RaceGUI {
     String horseText3 = "H";
 
     boolean finished = false;
+    boolean winnerFound = false;
 
     ScheduledExecutorService executor;
 
@@ -94,6 +95,7 @@ public class RaceGUI {
     {
         //declare a local variable to tell us when the race is finished
         finished = false;
+        winnerFound = false;
         
         //reset all the lanes (all horses not fallen and back to 0). 
         for (int i = 0; i < numOfTracks; i++)
@@ -125,7 +127,6 @@ public class RaceGUI {
             for (int i = 0; i < numOfTracks; i++) {
                 if(raceWonBy(horses[i]))
                 {
-                    printWinner(horses[i]);
                     displayEndStats();
                 }
             }
@@ -149,6 +150,13 @@ public class RaceGUI {
             if (raceWonBy(horses[i]))
             {
                 horses[i].isFinished = true;
+
+                if(winnerFound == false) {
+                    horses[i].firstToFinish = true;
+                    printWinner(horses[i]);
+                    winnerFound = true;
+                    System.out.println("Winner is " + horses[i].getName());
+                }
             }
         }
 
@@ -159,14 +167,26 @@ public class RaceGUI {
                 finished = false;
             }
         }
+
+        if (finished) {
+            for (int i = 0; i < numOfTracks; i++) {
+                if(horses[i].firstToFinish == true)
+                {
+                    displayEndStats();
+                }
+            }
+        }
         
     }
 
     //Print the winner and increase the confidence of the winner
     private void printWinner(Horse theHorse)
     {
+        
         theHorse.setConfidence(theHorse.getConfidence() + 0.1);
         winnerMessage.setText("And the winner is " + theHorse.getName());
+    
+        
     }
 
     /**
@@ -198,7 +218,7 @@ public class RaceGUI {
             //so if you double the confidence, the probability that it will fall is *2
             if (Math.random() < (0.015*theHorse.getConfidence()*theHorse.getConfidence()))
             {
-                theHorse.fall();
+                //theHorse.fall();
             }
         }
     }
@@ -372,7 +392,7 @@ public class RaceGUI {
     public void displayEndStats() {
         for (int i = 0; i < numOfTracks; i++)
         {
-            horseNumberOfTicksTextAreas[i].setText("Number of Ticks: " + horses[i].tickPerRace);
+            horseNumberOfTicksTextAreas[i].setText("Finsihed Time: " + horses[i].tickPerRace);
         }
     }
 }

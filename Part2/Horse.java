@@ -19,6 +19,7 @@ public class Horse
     private String breed;
     int tickPerRace = 0;
     boolean isFinished = false;
+    boolean firstToFinish = false;
     
     
       
@@ -80,6 +81,7 @@ public class Horse
         tickPerRace = 0;
         hasFallen = false;
         isFinished = false;
+        firstToFinish = false;
     }
     
     public boolean hasFallen()
