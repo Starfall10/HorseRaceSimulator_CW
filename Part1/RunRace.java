@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class TestRace {
+class RunRace {
     public static void main(String[] args) {
         Horse horseA = new Horse('A', "HorseA", 0.5);
         Horse horseB = new Horse('B', "HorseB", 0.5);
