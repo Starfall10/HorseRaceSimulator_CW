@@ -4,7 +4,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import java.awt.Color;
 import java.lang.Math;
@@ -33,6 +36,7 @@ public class RaceGUI {
     Horse winnerHorse;
     Horse horseBetOn;
     JTextArea currentBalanceTextArea;
+    JLabel bettingOddsTextArea;
 
     int numOfTracks;
 
@@ -45,7 +49,7 @@ public class RaceGUI {
     public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, 
     JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas, 
     JTextArea [] horseTrackSpeedTextAreas, JTextArea [] horseWinRateTextAreas, JTextArea bettingAmount, 
-    int currentBalance, Horse horseBetOn, JTextArea currentBalanceTextArea)
+    int currentBalance, Horse horseBetOn, JTextArea currentBalanceTextArea, JLabel bettingOddsTextArea)
     {
         // initialise instance variables
         this.raceLength = distance;
@@ -60,6 +64,7 @@ public class RaceGUI {
         this.currentBalance = currentBalance;
         this.horseBetOn = horseBetOn;
         this.currentBalanceTextArea = currentBalanceTextArea;
+        this.bettingOddsTextArea = bettingOddsTextArea;
     }
 
     /**
@@ -192,8 +197,40 @@ public class RaceGUI {
                     displayEndStats();
                 }
             }
+            updateBettingOdds();
+
             checkIfBetWon();
         }
+        
+    }
+
+    int horseWithHighestWinRate = 0;
+    int highestWinRate = 0;
+
+
+    public void updateBettingOdds() {
+        //System.out.println("here1"); this is good
+        for (int i = 0; i < numOfTracks; i++)
+        {
+            if(horses[i].numberOfWins == 0)
+            {
+                continue;
+            }
+            double winRate = (double)horses[i].numberOfWins / (double)horses[i].numberOfRaces;
+            if(winRate > highestWinRate)
+            {
+                //System.out.println("here2"); this is good
+                highestWinRate = (int)winRate;
+                horseWithHighestWinRate = i;
+            }
+        }
+        //System.out.println("here3"); this is good
+        double chanceOfWinningBet = (double)highestWinRate * (1-horses[horseWithHighestWinRate].getConfidence());
+
+        bettingOddsTextArea.setText("Betting Odds: " + horses[horseWithHighestWinRate].getName()
+         + " has the highest win rate of " + highestWinRate + ". So the chance of winning the bet is " + 
+         chanceOfWinningBet);
+        System.out.println("here");        
         
     }
 

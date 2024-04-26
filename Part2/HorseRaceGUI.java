@@ -25,7 +25,8 @@ public class HorseRaceGUI {
     JTextArea [] horseNumberOfTicksTextAreas = new JTextArea[5];
     JTextArea [] horseTrackSpeedTextAreas = new JTextArea[5];
     JTextArea [] horseWinRateTextAreas = new JTextArea[5];
-    JTextArea currentBalance, bettingOdds;
+    JTextArea currentBalance;
+    JLabel bettingOdds = new JLabel();
     JComboBox horseNumSelectBox;
     JTextArea bettingAmmount = new JTextArea();
     int bettingBalance = 100;
@@ -160,7 +161,7 @@ public class HorseRaceGUI {
                         race1 = new RaceGUI(trackLength, horseTextArea, numOfTracks, 
                         horseConfidenceLevels, winnerMessage, horseNumberOfTicksTextAreas, 
                         horseTrackSpeedTextAreas, horseWinRateTextAreas, bettingAmmount, bettingBalance, 
-                        horseBetOn, currentBalance
+                        horseBetOn, currentBalance, bettingOdds
                         );
 
                         for (int i = 0; i < numOfTracks; i++) {
@@ -286,13 +287,8 @@ public class HorseRaceGUI {
 
         currentBalance = new JTextArea();
         currentBalance.setText("Balance: $100");
-
-
-    
-        JLabel empty = new JLabel("");
-
-        bettingOdds = new JTextArea();
-        bettingOdds.setText("Odds: 1:1");
+        
+        bettingOdds.setText("Betting Odds: No Data");
         JLabel betOn = new JLabel("Bet on Horse: ");
         String [] horseNums = new String[numOfTracks];
         for (int i = 0; i < numOfTracks; i++) {
