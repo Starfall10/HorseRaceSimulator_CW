@@ -92,6 +92,7 @@ public class HorseRaceGUI {
             raceTrack.add(horse);
             
             horseConfidenceLevels[i] = new JTextArea("Confidence Level: ");
+            horseConfidenceLevels[i].setEditable(false);
             horseConfidenceLevels[i].setPreferredSize(new Dimension(150, 25));
             
 
@@ -317,7 +318,7 @@ public class HorseRaceGUI {
         }
         horseNumSelectBox = new JComboBox(horseNums);
 
-        bettingAmmount.setText("10");
+        bettingAmmount.setText("Change ME to integers only!");
 
         
         bettingPanel.add(betting);
