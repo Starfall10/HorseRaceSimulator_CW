@@ -17,7 +17,9 @@ public class HorseRaceGUI {
     
     JTextArea [] horseTextArea = new JTextArea[5];
     JTextField [] horseNameFields = new JTextField[5];
+    @SuppressWarnings("rawtypes")
     JComboBox [] horseColorFields = new JComboBox[5];
+    @SuppressWarnings("rawtypes")
     JComboBox [] horseBreedFields = new JComboBox[5];
     JPanel [] trackPanels = new JPanel[5];
     JTextArea [] horseConfidenceLevels = new JTextArea[5];
@@ -27,6 +29,7 @@ public class HorseRaceGUI {
     JTextArea [] horseWinRateTextAreas = new JTextArea[5];
     JTextArea currentBalance;
     JLabel bettingOdds = new JLabel();
+    @SuppressWarnings("rawtypes")
     JComboBox horseNumSelectBox;
     JTextArea bettingAmmount = new JTextArea();
     int bettingBalance = 100;
@@ -109,15 +112,18 @@ public class HorseRaceGUI {
         welcomeMessagePt2.setFont(new Font("Arial", Font.BOLD, 18));
         JLabel trackNum = new JLabel("Number of Tracks: ");
         String [] trackNums = {"2", "3", "4", "5"};
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         JComboBox trackNumSelectBox = new JComboBox(trackNums);
         
         JLabel trackLen = new JLabel("Track Length: ");
 
         String [] trackLens = {"10", "20", "30"};
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         JComboBox trackLenSelectBox = new JComboBox(trackLens);
         
         JButton setUpRace = new JButton("setUpRace");
         setUpRace.addActionListener(new ActionListener() {
+            @SuppressWarnings({ "rawtypes", "unchecked" })
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -286,6 +292,7 @@ public class HorseRaceGUI {
         mainFrame.add(statsPanel, BorderLayout.EAST);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void setUpBettingPanel() {
         bettingPanel.removeAll();
         bettingPanel.setLayout(new GridLayout(3,1));
