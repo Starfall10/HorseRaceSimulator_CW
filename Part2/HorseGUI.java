@@ -1,6 +1,10 @@
 package Part2;
 
 
+import Part2.RaceGUI;
+import Part2.HorseRaceGUI;
+import Part2.RaceGUI;
+
 /**
  * Write a description of class Horse here.
  * 

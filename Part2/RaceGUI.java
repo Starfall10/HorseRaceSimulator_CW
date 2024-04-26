@@ -12,6 +12,10 @@ import javax.swing.SwingUtilities;
 import java.awt.Color;
 import java.lang.Math;
 
+import Part2.HorseGUI;
+import Part2.HorseRaceGUI;
+import Part2.RunGUI;
+
 public class RaceGUI {
     private int raceLength;
 
@@ -228,8 +232,8 @@ public class RaceGUI {
         double chanceOfWinningBet = (double)highestWinRate * (1-horses[horseWithHighestWinRate].getConfidence());
 
         bettingOddsTextArea.setText("Betting Odds: " + horses[horseWithHighestWinRate].getName()
-         + " has the highest win rate of " + highestWinRate + ". So the chance of winning the bet is " + 
-         chanceOfWinningBet);
+         + " has the highest win rate of " + highestWinRate + ". So the chance of winning the bet is " + String.format("%.2f", chanceOfWinningBet));
+         
         System.out.println("here");        
         
     }

@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Part2.HorseGUI;
+import Part2.RaceGUI;
+import Part2.RunGUI;
 
 public class HorseRaceGUI {
     JFrame mainFrame;
@@ -80,7 +83,9 @@ public class HorseRaceGUI {
             raceTrack.setPreferredSize(new Dimension(780, 50));
             
             horseTextArea[i] = new JTextArea("");
+            horseTextArea[i].setEditable(false);
             JTextArea horse = horseTextArea[i];
+            horse.setEditable(false);
             horse.setPreferredSize(new Dimension(780, 50));
             horse.setBackground(Color.ORANGE);
             horse.setFont(new Font("Ariel", Font.PLAIN, 25));
@@ -259,6 +264,7 @@ public class HorseRaceGUI {
         //Winner panel
         JPanel winnerPanel = new JPanel();
         winnerMessage = new JTextArea("----------------------------------------");
+        winnerMessage.setEditable(false);
         winnerMessage.setFont(new Font("Arial", Font.BOLD, 20));
         winnerPanel.add(winnerMessage);
 
@@ -267,10 +273,13 @@ public class HorseRaceGUI {
         for(int i = 0; i < numOfTracks; i++) {
             JLabel trackSpeed = horseNameLabels[i];
             horseNumberOfTicksTextAreas[i] = new JTextArea("0");
+            horseNumberOfTicksTextAreas[i].setEditable(false);
             horseNumberOfTicksTextAreas[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
             horseTrackSpeedTextAreas[i] = new JTextArea("0");
+            horseTrackSpeedTextAreas[i].setEditable(false);
             horseTrackSpeedTextAreas[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
             horseWinRateTextAreas[i] = new JTextArea("n/a");
+            horseWinRateTextAreas[i].setEditable(false);
             horseWinRateTextAreas[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
             trackSpeedPanel.add(trackSpeed);
             trackSpeedPanel.add(horseNumberOfTicksTextAreas[i]);
@@ -295,9 +304,12 @@ public class HorseRaceGUI {
         betting.setFont(new Font("Arial", Font.BOLD, 20));
 
         currentBalance = new JTextArea();
+        currentBalance.setEditable(false);
         currentBalance.setText("Balance: $100");
         
         bettingOdds.setText("Betting Odds: No Data");
+        
+
         JLabel betOn = new JLabel("Bet on Horse: ");
         String [] horseNums = new String[numOfTracks];
         for (int i = 0; i < numOfTracks; i++) {
@@ -317,8 +329,4 @@ public class HorseRaceGUI {
         mainFrame.add(bettingPanel, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        new HorseRaceGUI();
-        
-    }
 }
