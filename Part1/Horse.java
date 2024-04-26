@@ -95,24 +95,3 @@ public class Horse
     
 }
 
-// class Test {
-//     public static void main(String[] args) {
-//         Horse horse = new Horse('H', "Horse", 0.5);
-//         System.out.println(horse.hasFallen());
-
-//         horse.fall();
-//         System.out.println(horse.hasFallen());
-
-//         horse.moveForward();
-//         System.out.println(horse.getDistanceTravelled());
-//         horse.goBackToStart();
-//         System.out.println(horse.getDistanceTravelled());
-     
-//         horse.setConfidence(0.7);
-//         System.out.println(horse.getConfidence());
-
-//         horse.setSymbol('A');
-//         System.out.println(horse.getSymbol());
-
-//     }
-// }
