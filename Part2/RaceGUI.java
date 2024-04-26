@@ -16,7 +16,7 @@ public class RaceGUI {
     private int raceLength;
 
 
-    private Horse [] horses = new Horse[5];
+    private HorseGUI [] horses = new HorseGUI[5];
     String [] horseTextStrings = new String[5];
     String horseText1 = "H";
     String horseText2 = "H";
@@ -33,8 +33,8 @@ public class RaceGUI {
     JTextArea [] horseNumberOfTicksTextAreas, horseTrackSpeedTextAreas, horseWinRateTextAreas;
     JTextArea bettingAmount;
     int currentBalance;
-    Horse winnerHorse;
-    Horse horseBetOn;
+    HorseGUI winnerHorse;
+    HorseGUI horseBetOn;
     JTextArea currentBalanceTextArea;
     JLabel bettingOddsTextArea;
 
@@ -49,7 +49,7 @@ public class RaceGUI {
     public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, 
     JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas, 
     JTextArea [] horseTrackSpeedTextAreas, JTextArea [] horseWinRateTextAreas, JTextArea bettingAmount, 
-    int currentBalance, Horse horseBetOn, JTextArea currentBalanceTextArea, JLabel bettingOddsTextArea)
+    int currentBalance, HorseGUI horseBetOn, JTextArea currentBalanceTextArea, JLabel bettingOddsTextArea)
     {
         // initialise instance variables
         this.raceLength = distance;
@@ -73,7 +73,7 @@ public class RaceGUI {
      * @param theHorse the horse to be added to the race
      * @param laneNumber the lane that the horse will be added to
      */
-    public void addHorse(Horse theHorse, int laneNumber)
+    public void addHorse(HorseGUI theHorse, int laneNumber)
     {
         if (laneNumber == 1)
         {
@@ -252,7 +252,7 @@ public class RaceGUI {
 
 
     //Print the winner and increase the confidence of the winner
-    private void printWinner(Horse theHorse)
+    private void printWinner(HorseGUI theHorse)
     {
         
         theHorse.setConfidence(theHorse.getConfidence() + 0.1);
@@ -268,7 +268,7 @@ public class RaceGUI {
      * 
      * @param theHorse the horse to be moved
      */
-    private void moveHorse(Horse theHorse)
+    private void moveHorse(HorseGUI theHorse)
     {
         //if the horse has fallen it cannot move, 
         //so only run if it has not fallen
@@ -302,7 +302,7 @@ public class RaceGUI {
      * @param theHorse The horse we are testing
      * @return true if the horse has won, false otherwise.
      */
-    private boolean raceWonBy(Horse theHorse)
+    private boolean raceWonBy(HorseGUI theHorse)
     {
         if (theHorse.getDistanceTravelled() == raceLength)
         {
@@ -332,7 +332,7 @@ public class RaceGUI {
 
 
     
-    private String printLane(Horse theHorse)
+    private String printLane(HorseGUI theHorse)
     {
         String returnText = "";
         //calculate how many spaces are needed before

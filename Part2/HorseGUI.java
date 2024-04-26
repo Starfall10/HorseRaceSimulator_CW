@@ -7,7 +7,7 @@ package Part2;
  * @author Trung Kien Nguyen
  * @version 1.0
  */
-public class Horse
+public class HorseGUI
 {
     //Fields of class Horse
     private String name;
@@ -28,7 +28,7 @@ public class Horse
     /**
      * Constructor for objects of class Horse
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence, String horseColor , String horseBreed)
+    public HorseGUI(char horseSymbol, String horseName, double horseConfidence, String horseColor , String horseBreed)
     {
         this.symbol = horseSymbol;
         this.name = horseName;

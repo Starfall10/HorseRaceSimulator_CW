@@ -11,8 +11,8 @@ public class HorseRaceGUI {
     private JPanel statsPanel = new JPanel();
     private int numOfTracks = 3; 
     private int trackLength = 10;
-    Horse testHorse = new Horse('\u265E', "Test", 0.5, "Black", "Knight");
-    Horse [] horses = new Horse[5];
+    HorseGUI testHorse = new HorseGUI('\u265E', "Test", 0.5, "Black", "Knight");
+    HorseGUI [] horses = new HorseGUI[5];
     RaceGUI race1;
     
     JTextArea [] horseTextArea = new JTextArea[5];
@@ -30,7 +30,7 @@ public class HorseRaceGUI {
     JComboBox horseNumSelectBox;
     JTextArea bettingAmmount = new JTextArea();
     int bettingBalance = 100;
-    Horse horseBetOn = testHorse;
+    HorseGUI horseBetOn = testHorse;
     JLabel [] horseNameLabels = new JLabel[5];
 
     
@@ -191,7 +191,7 @@ public class HorseRaceGUI {
                             } else if (horseBreed.equals("Pawn")) {
                                 cBreed = '\u265F';
                             }
-                            Horse horse = new Horse(cBreed, nameHorse, 0.5, colorHorse, horseBreed);
+                            HorseGUI horse = new HorseGUI(cBreed, nameHorse, 0.5, colorHorse, horseBreed);
                             horses[i] = horse;
                             race1.addHorse(horse, i+1);
                         }
