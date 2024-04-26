@@ -28,7 +28,11 @@ public class RaceGUI {
     JTextArea [] horseConfidenceLevels;
     JTextArea winnerMessage;
     JTextArea [] horseNumberOfTicksTextAreas, horseTrackSpeedTextAreas, horseWinRateTextAreas;
-
+    JTextArea bettingAmount;
+    int currentBalance;
+    Horse winnerHorse;
+    Horse horseBetOn;
+    JTextArea currentBalanceTextArea;
 
     int numOfTracks;
 
@@ -40,7 +44,8 @@ public class RaceGUI {
      */
     public RaceGUI(int distance, JTextArea [] horseTextAreas, int numTracks, 
     JTextArea [] horseConfidenceLevels, JTextArea winnerMessage, JTextArea [] horseNumberOfTicksTextAreas, 
-    JTextArea [] horseTrackSpeedTextAreas, JTextArea [] horseWinRateTextAreas)
+    JTextArea [] horseTrackSpeedTextAreas, JTextArea [] horseWinRateTextAreas, JTextArea bettingAmount, 
+    int currentBalance, Horse horseBetOn, JTextArea currentBalanceTextArea)
     {
         // initialise instance variables
         this.raceLength = distance;
@@ -51,6 +56,10 @@ public class RaceGUI {
         this.horseNumberOfTicksTextAreas = horseNumberOfTicksTextAreas;
         this.horseTrackSpeedTextAreas = horseTrackSpeedTextAreas;
         this.horseWinRateTextAreas = horseWinRateTextAreas;
+        this.bettingAmount = bettingAmount;
+        this.currentBalance = currentBalance;
+        this.horseBetOn = horseBetOn;
+        this.currentBalanceTextArea = currentBalanceTextArea;
     }
 
     /**
@@ -97,6 +106,7 @@ public class RaceGUI {
 
     public void startRaceGUI()
     {
+        System.out.println(horseBetOn.getName());
         //declare a local variable to tell us when the race is finished
         finished = false;
         winnerFound = false;
@@ -154,11 +164,13 @@ public class RaceGUI {
             if (raceWonBy(horses[i]))
             {
                 horses[i].isFinished = true;
+                
 
                 if(winnerFound == false) {
                     horses[i].firstToFinish = true;
                     printWinner(horses[i]);
                     winnerFound = true;
+                    winnerHorse = horses[i];
                     horses[i].numberOfWins++;
                     System.out.println("Winner is " + horses[i].getName());
                 }
@@ -176,13 +188,31 @@ public class RaceGUI {
         if (finished) {
             for (int i = 0; i < numOfTracks; i++) {
                 if(horses[i].firstToFinish == true)
-                {
+                {   
                     displayEndStats();
                 }
             }
+            checkIfBetWon();
         }
         
     }
+
+    private void checkIfBetWon() {
+        if(winnerHorse == horseBetOn)
+        {
+            currentBalance += Integer.parseInt(bettingAmount.getText());
+            bettingAmount.setText("0");
+            
+        }
+        else
+        {
+            currentBalance -= Integer.parseInt(bettingAmount.getText());
+            bettingAmount.setText("0");
+        }
+        currentBalanceTextArea.setText("Current balance: " + currentBalance);
+        System.out.println("Current balance: " + currentBalance);
+    }
+
 
     //Print the winner and increase the confidence of the winner
     private void printWinner(Horse theHorse)

@@ -11,7 +11,8 @@ public class HorseRaceGUI {
     private JPanel statsPanel = new JPanel();
     private int numOfTracks = 3; 
     private int trackLength = 10;
-    Horse horse1, horse2, horse3;
+    Horse testHorse = new Horse('\u265E', "Test", 0.5, "Black", "Knight");
+    Horse [] horses = new Horse[5];
     RaceGUI race1;
     
     JTextArea [] horseTextArea = new JTextArea[5];
@@ -24,6 +25,13 @@ public class HorseRaceGUI {
     JTextArea [] horseNumberOfTicksTextAreas = new JTextArea[5];
     JTextArea [] horseTrackSpeedTextAreas = new JTextArea[5];
     JTextArea [] horseWinRateTextAreas = new JTextArea[5];
+    JTextArea currentBalance, bettingOdds;
+    JComboBox horseNumSelectBox;
+    JTextArea bettingAmmount = new JTextArea();
+    int bettingBalance = 100;
+    Horse horseBetOn = testHorse;
+
+    
 
     public HorseRaceGUI() {
         mainFrame = new JFrame();
@@ -139,6 +147,9 @@ public class HorseRaceGUI {
                     setStatsPanel(numOfTracks);
                     statsPanel.revalidate();
                     statsPanel.repaint();
+                    setUpBettingPanel();
+                    bettingPanel.revalidate();
+                    bettingPanel.repaint();
 
                 }
 
@@ -148,7 +159,9 @@ public class HorseRaceGUI {
                     public void actionPerformed(ActionEvent e) {
                         race1 = new RaceGUI(trackLength, horseTextArea, numOfTracks, 
                         horseConfidenceLevels, winnerMessage, horseNumberOfTicksTextAreas, 
-                        horseTrackSpeedTextAreas, horseWinRateTextAreas);
+                        horseTrackSpeedTextAreas, horseWinRateTextAreas, bettingAmmount, bettingBalance, 
+                        horseBetOn, currentBalance
+                        );
 
                         for (int i = 0; i < numOfTracks; i++) {
                             String nameHorse = horseNameFields[i].getText();
@@ -169,6 +182,7 @@ public class HorseRaceGUI {
                                 cBreed = '\u265F';
                             }
                             Horse horse = new Horse(cBreed, nameHorse, 0.5, colorHorse, horseBreed);
+                            horses[i] = horse;
                             race1.addHorse(horse, i+1);
                         }
                         race1.setUpHorse(numOfTracks);
@@ -180,6 +194,25 @@ public class HorseRaceGUI {
                 startRace.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+
+                        String horseChoosen = horseNumSelectBox.getSelectedItem().toString();
+                        
+                        if (horseChoosen.equals("Horse 1")) {
+                            race1.horseBetOn = horses[0];
+                        }
+                        else if (horseChoosen.equals("Horse 2")) {
+                            race1.horseBetOn = horses[1];
+                        }
+                        else if (horseChoosen.equals("Horse 3")) {
+                            race1.horseBetOn = horses[2];
+                        }
+                        else if (horseChoosen.equals("Horse 4")) {
+                            race1.horseBetOn = horses[3];
+                        }
+                        else if (horseChoosen.equals("Horse 5")) {
+                            race1.horseBetOn = horses[4];
+                        }
+
                         race1.startRaceGUI();
                     }
                 });
@@ -215,9 +248,8 @@ public class HorseRaceGUI {
         
         //Winner panel
         JPanel winnerPanel = new JPanel();
-        JLabel winner = new JLabel("Winner ");
-        winnerMessage = new JTextArea("------------------");
-        winnerPanel.add(winner);
+        winnerMessage = new JTextArea("-------------------------------");
+        winnerMessage.setFont(new Font("Arial", Font.BOLD, 20));
         winnerPanel.add(winnerMessage);
 
         //Track Speed panel
@@ -244,6 +276,41 @@ public class HorseRaceGUI {
         mainFrame.add(statsPanel, BorderLayout.EAST);
     }
 
+    public void setUpBettingPanel() {
+        bettingPanel.removeAll();
+        bettingPanel.setLayout(new GridLayout(3,1));
+        bettingPanel.setPreferredSize(new Dimension(200, 100));
+        bettingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        JLabel betting = new JLabel("Betting Window");
+        betting.setFont(new Font("Arial", Font.BOLD, 20));
+
+        currentBalance = new JTextArea();
+        currentBalance.setText("Balance: $100");
+
+
+    
+        JLabel empty = new JLabel("");
+
+        bettingOdds = new JTextArea();
+        bettingOdds.setText("Odds: 1:1");
+        JLabel betOn = new JLabel("Bet on Horse: ");
+        String [] horseNums = new String[numOfTracks];
+        for (int i = 0; i < numOfTracks; i++) {
+            horseNums[i] = "Horse " + (i+1);
+        }
+        horseNumSelectBox = new JComboBox(horseNums);
+
+        bettingAmmount.setText("10");
+
+        
+        bettingPanel.add(betting);
+        bettingPanel.add(bettingOdds);
+        bettingPanel.add(currentBalance);
+        bettingPanel.add(bettingAmmount);
+        bettingPanel.add(betOn);
+        bettingPanel.add(horseNumSelectBox);
+        mainFrame.add(bettingPanel, BorderLayout.SOUTH);
+    }
 
     public static void main(String[] args) {
         new HorseRaceGUI();
